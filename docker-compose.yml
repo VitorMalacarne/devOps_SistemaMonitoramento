@@ -1,6 +1,4 @@
 services:
-
-
   # API 1: (Spring Boot)
   api-spring:
     build:
@@ -10,12 +8,17 @@ services:
       - "8080"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d monitoramento"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     depends_on:
       - postgres
     networks:
       - appnet
 
-# API 2: (Express)
+  # API 2: (Express)
   api-express:
     build:
       context: https://github.com/VitorMalacarne/Express_api-leituras.git
@@ -31,7 +34,6 @@ services:
       - appnet
     restart: always
 
-
   # Front-end Web
   front-web:
     build:
@@ -41,7 +43,6 @@ services:
       - "80"
     networks:
       - appnet
-
 
   # NGINX (API Gateway)
   nginx:
@@ -58,9 +59,9 @@ services:
     networks:
       - appnet
 
- # --- Banco MongoDB ---
+  # --- Banco MongoDB ---
   mongo:
-    image: mongo:latest
+    image: mongo:4.4
     container_name: mongodb
     restart: always
     environment:
