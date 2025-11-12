@@ -30,6 +30,7 @@ services:
       - MONGO_URL=mongodb://root:123456@mongo:27017/leiturasdb?authSource=admin
     depends_on:
       - mongo
+      - rabbitmq
     networks:
       - appnet
     restart: always
@@ -59,6 +60,16 @@ services:
     networks:
       - appnet
 
+  # --- Serviço de Mensageria RabbitMQ ---
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672" # Porta para comunicação entre serviços
+      - "15672:15672" # Painel de administração (web)
+    networks:
+      - appnet
   # --- Banco MongoDB ---
   mongo:
     image: mongo:4.4
