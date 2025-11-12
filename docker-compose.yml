@@ -69,6 +69,9 @@ services:
     ports:
       - "5672:5672" # Porta para comunicação entre serviços
       - "15672:15672" # Painel de administração (web)
+    environment:
+      RABBITMQ_DEFAULT_USER: appuser
+      RABBITMQ_DEFAULT_PASS: 123456
     networks:
       - appnet
   # --- Banco MongoDB ---
