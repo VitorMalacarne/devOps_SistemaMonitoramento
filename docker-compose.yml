@@ -74,6 +74,19 @@ services:
       RABBITMQ_DEFAULT_PASS: 123456
     networks:
       - appnet
+
+    consumer:
+      build:
+        context: https://github.com/VitorMalacarne/TAC_Consumer.git
+      container_name: consumer
+      environment:
+        - RABBITMQ_URL=amqp://appuser:123456@rabbitmq:5672
+      depends_on:
+        - rabbitmq
+      networks:
+        - appnet
+      restart: always
+
   # --- Banco MongoDB ---
   mongo:
     image: mongo:4.4
