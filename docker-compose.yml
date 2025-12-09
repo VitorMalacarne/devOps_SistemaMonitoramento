@@ -31,7 +31,6 @@ services:
       - RABBITMQ_URL=amqp://appuser:123456@rabbitmq:5672
     depends_on:
       - mongo
-      - rabbitmq
     networks:
       - appnet
     restart: always
