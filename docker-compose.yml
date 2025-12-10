@@ -28,7 +28,6 @@ services:
     environment:
       - NODE_ENV=production
       - MONGO_URL=mongodb://root:123456@mongo:27017/leiturasdb?authSource=admin
-      - RABBITMQ_URL=amqp://appuser:123456@rabbitmq:5672
     depends_on:
       - mongo
     networks:
