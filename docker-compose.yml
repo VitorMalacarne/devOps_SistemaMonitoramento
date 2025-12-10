@@ -8,6 +8,8 @@ services:
       - "8080"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+    env_file:
+      - ./.env.local
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U admin -d monitoramento"]
       interval: 10s
@@ -28,6 +30,8 @@ services:
     environment:
       - NODE_ENV=production
       - MONGO_URL=mongodb://root:123456@mongo:27017/leiturasdb?authSource=admin
+    env_file:
+      - ./.env.local
     depends_on:
       - mongo
     networks:
@@ -41,6 +45,8 @@ services:
     container_name: front_web
     expose:
       - "80"
+    env_file:
+      - ./.env.local
     networks:
       - appnet
 
